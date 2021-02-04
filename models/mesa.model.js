@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const consecutivoModel = require("./consecutivo.model")
+const setCodigo = require('./plugins/setCodigo');
+const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 
 const mesaSchema = new Schema({
   codigo: '',
@@ -11,37 +12,8 @@ const mesaSchema = new Schema({
 }, {
   versionKey: false,
 });
-
-// Genera codigo en base a consecutivo
-mesaSchema.pre("save", async function (next) {
-  try {
-    const mesa = this;
-    this.wasNew = mesa.isNew;
-    if (mesa.isNew) {
-      const Consecutivo = await consecutivoModel.getByTable('Mesa');
-      let { prefijo, valor } = Consecutivo;
-      valor++
-      mesa.codigo = prefijo + valor;
-    }
-    next();
-  } catch (error) {
-    console.log('Error' + error);
-  }
-});
-
-// Aumenta valor de consecutivo a +1
-mesaSchema.post('save', async function (doc, next) {
-  try {
-    if (this.wasNew) {
-      const Consecutivo = await consecutivoModel.getByTable('Mesa');
-      Consecutivo.valor++;
-      Consecutivo.save();
-    }
-    next();
-  } catch (error) {
-    console.log('Error' + error);
-  }
-});
+mesaSchema.plugin(setCodigo, {tabla: 'Mesa'});
+mesaSchema.plugin(aumentaConsecutivo, {tabla: 'Mesa'});
 
 const Mesa = mongoose.model('Mesa', mesaSchema);
 
