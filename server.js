@@ -26,9 +26,11 @@ connection.once('open', () => {
 const mesasRouter = require('./routes/mesas');
 const consecutivosRouter = require('./routes/consecutivos');
 const paisesRouter = require('./routes/paises');
+const marcasRouter = require('./routes/marcas');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
+app.use('/marcas', marcasRouter);
 
 // Iniciar servidor
 app.listen(port, () => {
