@@ -12,6 +12,7 @@ router.route('/').get(async (req, res) => {
 
 router.route('/add').post(async (req, res) => {
   try {
+    const codigo = req.body.codigo;
     const tabla = req.body.tabla;
     const descripcion = req.body.descripcion;
     const valor = Number(req.body.valor);
@@ -19,6 +20,7 @@ router.route('/add').post(async (req, res) => {
     const prefijo = req.body.prefijo;
     const deleted = false;
     const nuevoConsecutivo = new Consecutivo({
+      codigo,
       tabla,
       descripcion,
       valor,

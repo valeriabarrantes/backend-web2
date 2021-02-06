@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const encrypt = require('mongoose-encryption');
 
 const consecutivoSchema = new Schema({
+  codigo: { type: Number, required: true, bcrypt: true },
   tabla: { type: String, required: true },
   descripcion: { type: String, required: true },
   valor: { type: Number, required: true },
@@ -12,11 +13,17 @@ const consecutivoSchema = new Schema({
 }, {
   versionKey: false
 });
-consecutivoSchema.plugin(AutoIncrement, { inc_field: 'codigo', id: 'consecutivos_seq' });
+consecutivoSchema.set('collection', 'consecutivos');
+consecutivoSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 consecutivoSchema.statics = {
-  getByTable: function (tabla) {
-    return this.findOne({ tabla: tabla })
+  getAll: function () {
+    return this.find().exec();
+  },
+  getByTable: async function (tabla) {
+    const consecutivos = await this.getAll();
+    const consecutivo = consecutivos.find(consecutivo => consecutivo.tabla == tabla);
+    return this.findOne({ _id: consecutivo._id })
       .exec();
   }
 }
