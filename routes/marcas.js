@@ -28,12 +28,12 @@ router.post('/add', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fot
     const nombreMarca = req.body.nombreMarca;
     const descripcionMarca = req.body.descripcionMarca;
     const nacionalidad = req.body.nacionalidad;
-    const fotoMarca = req.files.fotoMarca[0].filename;
+    const fotoMarca = '/resources/uploads/marcas/' + req.files.fotoMarca[0].filename;
     const cedulaEmpresa = req.body.cedulaEmpresa;
     const nombreEmpresa = req.body.nombreEmpresa;
     const detalleEmpresa = req.body.detalleEmpresa;
     const telefonoEmpresa = req.body.telefonoEmpresa;
-    const fotoEmpresa = req.files.fotoEmpresa[0].filename;
+    const fotoEmpresa = '/resources/uploads/marcas/' + req.files.fotoEmpresa[0].filename;
     const deleted = false;
     const nuevaMarca = new Marca({
       nombreMarca,
@@ -48,7 +48,7 @@ router.post('/add', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fot
       deleted
     });
     await nuevaMarca.save();
-    res.json('Marca agregado!');
+    res.json('Marca agregada!');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -72,20 +72,20 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fotoEmpresa', maxCount: 1}]), async (req, res) => {
   try {
     const marcas = await Marca.findById(req.params.id);
     marcas.nombreMarca = req.body.nombreMarca;
     marcas.descripcionMarca = req.body.descripcionMarca;
     marcas.nacionalidad = req.body.nacionalidad;
-    marcas.fotoMarca = req.body.fotoMarca;
+    marcas.fotoMarca = '/resources/uploads/marcas/' + req.files.fotoMarca[0].filename;
     marcas.cedulaEmpresa = req.body.cedulaEmpresa;
     marcas.nombreEmpresa = req.body.nombreEmpresa;
     marcas.detalleEmpresa = req.body.detalleEmpresa;
     marcas.telefonoEmpresa = req.body.telefonoEmpresa;
-    marcas.fotoEmpresa = req.body.fotoEmpresa;
+    marcas.fotoEmpresa = '/resources/uploads/marcas/' + req.files.fotoEmpresa[0].filename;
     marcas.save();
-    res.json('Marcas actualizado!');
+    res.json('Marca actualizada!');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

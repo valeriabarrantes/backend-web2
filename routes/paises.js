@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 router.post('/add', upload.single('imagen'), async (req, res) => {
   try {
     const nombre = req.body.nombre;
-    const imagen = req.file.filename;
+    const imagen = '/resources/uploads/paises/' + req.file.filename;
     const deleted = false;
     const nuevoPais = new Pais({
       nombre,
@@ -58,11 +58,11 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', upload.single('imagen'), async (req, res) => {
   try {
     const pais = await Pais.findById(req.params.id);
     pais.nombre = req.body.nombre;
-    pais.imagen = req.body.imagen;
+    pais.imagen = '/resources/uploads/paises/' + req.file.filename;
     pais.save();
     res.json('Pais actualizado!');
   } catch (error) {
