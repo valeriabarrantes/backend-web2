@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Mesa = require('../models/mesa.model');
 
-router.route('/').get(async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const mesas = await Mesa.find();
     res.json(mesas);
@@ -10,7 +10,7 @@ router.route('/').get(async (req, res) => {
   }
 });
 
-router.route('/add').post(async (req, res) => {
+router.post('/add', async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const numero = Number(req.body.numero);
@@ -29,7 +29,7 @@ router.route('/add').post(async (req, res) => {
   }
 })
 
-router.route('/:id').get(async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     res.json(mesa);
@@ -38,7 +38,7 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
-router.route('/:id').delete(async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     await Mesa.findByIdAndDelete(req.params.id);
     res.json('Mesa removida totalmente.');
@@ -47,7 +47,7 @@ router.route('/:id').delete(async (req, res) => {
   }
 });
 
-router.route('/update/:id').post(async (req, res) => {
+router.post('/update/:id', async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     mesa.nombre = req.body.nombre;
@@ -60,7 +60,7 @@ router.route('/update/:id').post(async (req, res) => {
   }
 });
 
-router.route('/delete/:id').post(async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     mesa.deleted = true;

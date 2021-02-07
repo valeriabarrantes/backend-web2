@@ -15,8 +15,7 @@ app.use(bodyParser.json());
 
 // Conexion con MongoDB
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
-);
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log('Conexión con Mongo DB establecida exitosamente');
@@ -31,6 +30,8 @@ app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
 app.use('/marcas', marcasRouter);
+
+app.use('/resources',express.static(__dirname + '/public'));
 
 // Iniciar servidor
 app.listen(port, () => {
