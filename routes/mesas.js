@@ -15,11 +15,13 @@ router.post('/add', async (req, res) => {
     const nombre = req.body.nombre;
     const numero = Number(req.body.numero);
     const sillas = Number(req.body.sillas);
+    const restaurante = req.body.restaurante;
     const deleted = false;
     const nuevaMesa = new Mesa({
       nombre,
       numero,
       sillas,
+      restaurante,
       deleted
     });
     await nuevaMesa.save();
@@ -53,6 +55,7 @@ router.post('/update/:id', async (req, res) => {
     mesa.nombre = req.body.nombre;
     mesa.numero = Number(req.body.numero);
     mesa.sillas = Number(req.body.sillas);
+    mesa.restaurante = req.body.restaurante;
     mesa.save();
     res.json('Mesa actualizada!');
   } catch (error) {
