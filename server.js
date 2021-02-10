@@ -26,10 +26,18 @@ const mesasRouter = require('./routes/mesas');
 const consecutivosRouter = require('./routes/consecutivos');
 const paisesRouter = require('./routes/paises');
 const marcasRouter = require('./routes/marcas');
+const restaurantesRouter = require('./routes/restaurantes');
+const rolesRouter = require('./routes/roles');
+const puestosRouter = require('./routes/puestos');
+const empleadosRouter = require('./routes/empleados');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
 app.use('/marcas', marcasRouter);
+app.use('/restaurantes', restaurantesRouter);
+app.use('/roles', rolesRouter);
+app.use('/puestos', puestosRouter);
+app.use('/empleados', empleadosRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 

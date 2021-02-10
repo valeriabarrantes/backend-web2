@@ -9,7 +9,9 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, '../public/uploads/marcas'))
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '_' + (req.body.nombreMarca).split(' ').join('_') + '.png')
+    const fileExtension = '.' + file.originalname.split('.').pop()
+    const fileName = file.fieldname + '_' + (req.body.nombreMarca).split(' ').join('_');
+    cb(null, fileName + fileExtension)
   }
 })
 const upload = multer({ storage: storage });
