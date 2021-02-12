@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const verifyToken = require('../middlewares').verifyToken;
+const jwt = require('jsonwebtoken');
 let Usuario = require('../models/usuario.model');
 
 router.post('/login', async (req, res) => {
@@ -8,9 +9,13 @@ router.post('/login', async (req, res) => {
     const contrasena = req.body.contrasena;
     const usuarios = await Usuario.find();
     const usuario = usuarios.find(usuario => usuario.login == login && usuario.contrasena == contrasena);
-    jwt.sign({user: usuario}, process.env.SECRET, (err, token) => {
-      res.json({token});
-    })
+    if (usuario) {
+      jwt.sign({user: usuario}, process.env.SECRET, (err, token) => {
+          res.json({token, usuario});
+      })
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
