@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const verifyToken = require('../middlewares').verifyToken;
 let Consecutivo = require('../models/consecutivo.model');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const consecutivos = await Consecutivo.find();
     res.json(consecutivos);
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
   try {
     const codigo = req.body.codigo;
     const tabla = req.body.tabla;
@@ -35,7 +36,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const consecutivo = await Consecutivo.findById(req.params.id);
     res.json(consecutivo);
@@ -44,7 +45,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Consecutivo.findByIdAndDelete(req.params.id);
     res.json('Consecutivo removido totalmente.');
@@ -53,7 +54,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', verifyToken, async (req, res) => {
   try {
     const consecutivo = await Consecutivo.findById(req.params.id);
     consecutivo.tabla = req.body.tabla;
@@ -68,7 +69,7 @@ router.post('/update/:id', async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const consecutivo = await Consecutivo.findById(req.params.id);
     consecutivo.deleted = true;

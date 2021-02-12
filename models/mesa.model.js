@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const mesaSchema = new Schema({
-  codigo: '',
+  codigo: {type: String,default: ''},
   nombre: { type: String, required: true },
   numero: { type: Number, required: true },
   sillas: { type: Number, required: true },

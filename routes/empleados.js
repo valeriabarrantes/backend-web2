@@ -1,7 +1,8 @@
 let Empleado = require('../models/empleado.model');
 const router = require('express').Router();
-const multer = require('multer');
 const path = require('path');
+const multer = require('multer');
+const verifyToken = require('../middlewares').verifyToken;
 
 // File upload
 const storage = multer.diskStorage({
@@ -15,8 +16,9 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage });
+const uploadSingle = upload.single('foto');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const empleados = await Empleado.find();
     res.json(empleados);
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', upload.single('foto'), async (req, res) => {
+router.post('/add', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const cedula = req.body.cedula;
     const nombre = req.body.nombre;
@@ -58,7 +60,7 @@ router.post('/add', upload.single('foto'), async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const empleado = await Empleado.findById(req.params.id);
     res.json(empleado);
@@ -67,7 +69,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Empleado.findByIdAndDelete(req.params.id);
     res.json('Empleado removido totalmente.');
@@ -76,7 +78,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', upload.single('imagen'), async (req, res) => {
+router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const empleado = await Empleado.findById(req.params.id);
     empleado.cedula = req.body.cedula;
@@ -96,7 +98,7 @@ router.post('/update/:id', upload.single('imagen'), async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const empleado = await Empleado.findById(req.params.id);
     empleado.deleted = true;

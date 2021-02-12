@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const verifyToken = require('../middlewares').verifyToken;
 let Puesto = require('../models/puesto.model');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const puestos = await Puesto.find();
     res.json(puestos);
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const rol = req.body.rol;
@@ -31,7 +32,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const puesto = await Puesto.findById(req.params.id);
     res.json(puesto);
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Puesto.findByIdAndDelete(req.params.id);
     res.json('Puesto removido totalmente.');
@@ -49,7 +50,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', verifyToken, async (req, res) => {
   try {
     const puesto = await Puesto.findById(req.params.id);
     puesto.nombre = req.body.nombre;
@@ -63,7 +64,7 @@ router.post('/update/:id', async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const puesto = await Puesto.findById(req.params.id);
     puesto.deleted = true;

@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const paisSchema = new Schema({
-  codigo: '',
+  codigo: {type: String,default: ''},
   nombre: { type: String, required: true },
   imagen: { type: String, required: true },
   deleted: { type: Boolean, required: false }
