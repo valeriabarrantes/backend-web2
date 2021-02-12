@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const verifyToken = require('../middlewares').verifyToken;
 let Restaurante = require('../models/restaurante.model');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const restaurantes = await Restaurante.find();
     res.json(restaurantes);
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const especialidad = req.body.especialidad;
@@ -35,7 +36,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const restaurante = await Restaurante.findById(req.params.id);
     res.json(restaurante);
@@ -44,7 +45,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Restaurante.findByIdAndDelete(req.params.id);
     res.json('Restaurante removido totalmente.');
@@ -53,7 +54,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', verifyToken, async (req, res) => {
   try {
     const restaurante = await Restaurante.findById(req.params.id);
     restaurante.nombre = req.body.nombre;
@@ -69,7 +70,7 @@ router.post('/update/:id', async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const restaurante = await Restaurante.findById(req.params.id);
     restaurante.deleted = true;

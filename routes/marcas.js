@@ -1,7 +1,8 @@
 let Marca = require('../models/marca.model');
 const router = require('express').Router();
-const multer = require('multer');
 const path = require('path');
+const multer = require('multer');
+const verifyToken = require('../middlewares').verifyToken;
 
 // File upload
 const storage = multer.diskStorage({
@@ -15,8 +16,9 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage });
+const uploadDouble = upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fotoEmpresa', maxCount: 1}]);
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const marcas = await Marca.find();
     res.json(marcas);
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fotoEmpresa', maxCount: 1}]), async (req, res) => {
+router.post('/add', [verifyToken, uploadDouble], async (req, res) => {
   try {
     const nombreMarca = req.body.nombreMarca;
     const descripcionMarca = req.body.descripcionMarca;
@@ -56,7 +58,7 @@ router.post('/add', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fot
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const marca = await Marca.findById(req.params.id);
     res.json(marca);
@@ -65,7 +67,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Marca.findByIdAndDelete(req.params.id);
     res.json('Marca removida totalmente.');
@@ -74,7 +76,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', upload.fields([{name: 'fotoMarca', maxCount: 1}, {name: 'fotoEmpresa', maxCount: 1}]), async (req, res) => {
+router.post('/update/:id', [verifyToken ,uploadDouble], async (req, res) => {
   try {
     const marcas = await Marca.findById(req.params.id);
     marcas.nombreMarca = req.body.nombreMarca;
@@ -93,7 +95,7 @@ router.post('/update/:id', upload.fields([{name: 'fotoMarca', maxCount: 1}, {nam
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const marca = await Marca.findById(req.params.id);
     marca.deleted = true;

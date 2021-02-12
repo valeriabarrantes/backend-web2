@@ -1,7 +1,8 @@
 let Pais = require('../models/pais.model');
 const router = require('express').Router();
-const multer = require('multer');
 const path = require('path');
+const multer = require('multer');
+const verifyToken = require('../middlewares').verifyToken;
 
 // File upload
 const storage = multer.diskStorage({
@@ -15,8 +16,9 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage });
+const uploadSingle = upload.single('imagen');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const paises = await Pais.find();
     res.json(paises);
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', upload.single('imagen'), async (req, res) => {
+router.post('/add', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const imagen = '/resources/uploads/paises/' + req.file.filename;
@@ -42,7 +44,7 @@ router.post('/add', upload.single('imagen'), async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const pais = await Pais.findById(req.params.id);
     res.json(pais);
@@ -51,7 +53,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Pais.findByIdAndDelete(req.params.id);
     res.json('Pais removido totalmente.');
@@ -60,7 +62,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', upload.single('imagen'), async (req, res) => {
+router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const pais = await Pais.findById(req.params.id);
     pais.nombre = req.body.nombre;
@@ -72,7 +74,7 @@ router.post('/update/:id', upload.single('imagen'), async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const pais = await Pais.findById(req.params.id);
     pais.deleted = true;

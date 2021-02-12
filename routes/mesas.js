@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const verifyToken = require('../middlewares').verifyToken;
 let Mesa = require('../models/mesa.model');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const mesas = await Mesa.find();
     res.json(mesas);
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const numero = Number(req.body.numero);
@@ -31,7 +32,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     res.json(mesa);
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Mesa.findByIdAndDelete(req.params.id);
     res.json('Mesa removida totalmente.');
@@ -49,7 +50,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', verifyToken, async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     mesa.nombre = req.body.nombre;
@@ -63,7 +64,7 @@ router.post('/update/:id', async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const mesa = await Mesa.findById(req.params.id);
     mesa.deleted = true;

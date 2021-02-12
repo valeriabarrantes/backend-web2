@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const verifyToken = require('../middlewares').verifyToken;
 let Rol = require('../models/rol.model');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const roles = await Rol.find();
     res.json(roles);
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/add', async (req, res) => {
+router.post('/add', verifyToken, async (req, res) => {
   try {
     const nombre = req.body.nombre;
     const descripcion = req.body.descripcion;
@@ -27,7 +28,7 @@ router.post('/add', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
   try {
     const rol = await Rol.findById(req.params.id);
     res.json(rol);
@@ -36,7 +37,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Rol.findByIdAndDelete(req.params.id);
     res.json('Rol removido totalmente.');
@@ -45,7 +46,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/update/:id', async (req, res) => {
+router.post('/update/:id', verifyToken, async (req, res) => {
   try {
     const rol = await Rol.findById(req.params.id);
     rol.nombre = req.body.nombre;
@@ -57,7 +58,7 @@ router.post('/update/:id', async (req, res) => {
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', verifyToken, async (req, res) => {
   try {
     const rol = await Rol.findById(req.params.id);
     rol.deleted = true;
