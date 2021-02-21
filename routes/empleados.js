@@ -72,7 +72,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Empleado.findByIdAndDelete(req.params.id);
-    res.json('Empleado removido totalmente.');
+    res.json('Empleado removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -93,17 +93,6 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     empleado.foto = '/resources/uploads/empleados/' + req.file.filename;
     empleado.save();
     res.json('Empleado actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const empleado = await Empleado.findById(req.params.id);
-    empleado.deleted = true;
-    empleado.save();
-    res.json('Empleado removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

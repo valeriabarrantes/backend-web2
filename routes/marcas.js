@@ -70,7 +70,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Marca.findByIdAndDelete(req.params.id);
-    res.json('Marca removida totalmente.');
+    res.json('Marca removida.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -90,17 +90,6 @@ router.post('/update/:id', [verifyToken ,uploadDouble], async (req, res) => {
     marcas.fotoEmpresa = '/resources/uploads/marcas/' + req.files.fotoEmpresa[0].filename;
     marcas.save();
     res.json('Marca actualizada!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const marca = await Marca.findById(req.params.id);
-    marca.deleted = true;
-    marca.save();
-    res.json('Marca removida parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

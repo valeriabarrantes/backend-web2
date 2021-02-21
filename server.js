@@ -31,6 +31,7 @@ const rolesRouter = require('./routes/roles');
 const puestosRouter = require('./routes/puestos');
 const empleadosRouter = require('./routes/empleados');
 const usuariosRouter = require('./routes/usuarios');
+const bebidasCalientesRouter = require('./routes/bebidasCalientes');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -40,6 +41,7 @@ app.use('/roles', rolesRouter);
 app.use('/puestos', puestosRouter);
 app.use('/empleados', empleadosRouter);
 app.use('/usuarios', usuariosRouter);
+app.use('/bebidasCalientes', bebidasCalientesRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 

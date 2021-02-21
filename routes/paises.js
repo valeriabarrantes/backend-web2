@@ -56,7 +56,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Pais.findByIdAndDelete(req.params.id);
-    res.json('Pais removido totalmente.');
+    res.json('Pais removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -69,17 +69,6 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     pais.imagen = '/resources/uploads/paises/' + req.file.filename;
     pais.save();
     res.json('Pais actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const pais = await Pais.findById(req.params.id);
-    pais.deleted = true;
-    pais.save();
-    res.json('Pais removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

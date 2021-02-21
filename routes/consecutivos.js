@@ -48,7 +48,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Consecutivo.findByIdAndDelete(req.params.id);
-    res.json('Consecutivo removido totalmente.');
+    res.json('Consecutivo removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -64,17 +64,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     consecutivo.prefijo = req.body.prefijo;
     consecutivo.save();
     res.json('Consecutivo actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const consecutivo = await Consecutivo.findById(req.params.id);
-    consecutivo.deleted = true;
-    consecutivo.save();
-    res.json('Consecutivo removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

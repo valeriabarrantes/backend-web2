@@ -44,7 +44,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Mesa.findByIdAndDelete(req.params.id);
-    res.json('Mesa removida totalmente.');
+    res.json('Mesa removida.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -59,17 +59,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     mesa.restaurante = req.body.restaurante;
     mesa.save();
     res.json('Mesa actualizada!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const mesa = await Mesa.findById(req.params.id);
-    mesa.deleted = true;
-    mesa.save();
-    res.json('Mesa removida parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
