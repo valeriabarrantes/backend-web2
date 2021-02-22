@@ -10,8 +10,9 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, '../public/uploads/marcas'))
   },
   filename: function (req, file, cb) {
-    const fileExtension = '.' + file.originalname.split('.').pop()
-    const fileName = file.fieldname + '_' + (req.body.nombreMarca).split(' ').join('_');
+    const fileExtension = '.' + file.originalname.split('.').pop();
+    const nombreElemento = (req.body.nombreMarca.replace(/[^a-zA-Z ]/g, ' ')).split(' ').join('_');
+    const fileName = file.fieldname + '_' + nombreElemento;
     cb(null, fileName + fileExtension)
   }
 })
@@ -29,7 +30,7 @@ router.get('/', verifyToken, async (req, res) => {
 
 router.post('/add', [verifyToken, uploadDouble], async (req, res) => {
   try {
-    const nombreMarca = req.body.nombreMarca;
+    const nombreMarca = req.body.nombreMarca.replace(/[^a-zA-Z ]/g, ' ');
     const descripcionMarca = req.body.descripcionMarca;
     const nacionalidad = req.body.nacionalidad;
     const fotoMarca = '/resources/uploads/marcas/' + req.files.fotoMarca[0].filename;
