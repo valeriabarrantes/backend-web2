@@ -10,8 +10,9 @@ const storage = multer.diskStorage({
     cb(null, path.resolve(__dirname, '../public/uploads/empleados'))
   },
   filename: function (req, file, cb) {
-    const fileExtension = '.' + file.originalname.split('.').pop()
-    const fileName = file.fieldname + '_' + (req.body.cedula).split(' ').join('_');
+    const fileExtension = '.' + file.originalname.split('.').pop();
+    const nombreElemento = (req.body.cedula.replace(/[^a-zA-Z ]/g, ' ')).split(' ').join('_');
+    const fileName = file.fieldname + '_' + nombreElemento;
     cb(null, fileName + fileExtension)
   }
 })
