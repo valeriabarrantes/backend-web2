@@ -77,7 +77,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Usuario.findByIdAndDelete(req.params.id);
-    res.json('Usuario removido totalmente.');
+    res.json('Usuario removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -99,17 +99,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     usuario.contrasena = req.body.contrasena;
     usuario.save();
     res.json('Usuario actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const usuario = await Usuario.findById(req.params.id);
-    usuario.deleted = true;
-    usuario.save();
-    res.json('Usuario removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

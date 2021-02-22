@@ -44,7 +44,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Puesto.findByIdAndDelete(req.params.id);
-    res.json('Puesto removido totalmente.');
+    res.json('Puesto removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -59,17 +59,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     puesto.externo = Boolean(req.body.externo);
     puesto.save();
     res.json('Puesto actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const puesto = await Puesto.findById(req.params.id);
-    puesto.deleted = true;
-    puesto.save();
-    res.json('Puesto removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

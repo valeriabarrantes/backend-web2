@@ -1,4 +1,4 @@
-let Pais = require('../models/pais.model');
+let BebidaHelada= require('../models/bebidaHelada');
 const router = require('express').Router();
 const path = require('path');
 const multer = require('multer');
@@ -7,7 +7,7 @@ const verifyToken = require('../middlewares').verifyToken;
 // File upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.resolve(__dirname, '../public/uploads/paises'))
+    cb(null, path.resolve(__dirname, '../public/uploads/bebidasHeladas'))
   },
   filename: function (req, file, cb) {
     const fileExtension = '.' + file.originalname.split('.').pop()
@@ -16,12 +16,12 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage });
-const uploadSingle = upload.single('imagen');
+const uploadSingle = upload.single('foto');
 
 router.get('/', verifyToken, async (req, res) => {
   try {
-    const paises = await Pais.find();
-    res.json(paises);
+    const bebidasHeladas = await BebidaHelada.find();
+    res.json(bebidasHeladas);
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -30,15 +30,23 @@ router.get('/', verifyToken, async (req, res) => {
 router.post('/add', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const nombre = req.body.nombre;
-    const imagen = '/resources/uploads/paises/' + req.file.filename;
+    const precio = req.body.precio;
+    const restaurante = req.body.restaurante;
+    const descripcion = req.body.descripcion;
+    const ingredientes = req.body.ingredientes;
+    const foto = '/resources/uploads/bebidasHeladas/' + req.file.filename;
     const deleted = false;
-    const nuevoPais = new Pais({
+    const nuevaBebidaHelada = new BebidaHelada({
       nombre,
-      imagen,
+      precio,
+      restaurante,
+      descripcion,
+      ingredientes,
+      foto,
       deleted
     });
-    await nuevoPais.save();
-    res.json('Pais agregado!');
+    await nuevaBebidaHelada.save();
+    res.json('Bebida Helada agregada!');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -46,8 +54,8 @@ router.post('/add', [verifyToken, uploadSingle], async (req, res) => {
 
 router.get('/:id', verifyToken, async (req, res) => {
   try {
-    const pais = await Pais.findById(req.params.id);
-    res.json(pais);
+    const bebidaHelada = await BebidaHelada.findById(req.params.id);
+    res.json(bebidaHelada);
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -55,8 +63,8 @@ router.get('/:id', verifyToken, async (req, res) => {
 
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
-    await Pais.findByIdAndDelete(req.params.id);
-    res.json('Pais removido.');
+    await BebidaHelada.findByIdAndDelete(req.params.id);
+    res.json('Bebida Helada removida.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -64,14 +72,19 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
 router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
   try {
-    const pais = await Pais.findById(req.params.id);
-    pais.nombre = req.body.nombre;
-    pais.imagen = '/resources/uploads/paises/' + req.file.filename;
-    pais.save();
-    res.json('Pais actualizado!');
+    const bebidaHelada = await BebidaHelada.findById(req.params.id);
+    bebidaHelada.nombre = req.body.nombre;
+    bebidaHelada.precio = req.body.precio;
+    bebidaHelada.restaurante = req.body.restaurante;
+    bebidaHelada.descripcion = req.body.descripcion;
+    bebidaHelada.ingredientes = req.body.ingredientes;
+    bebidaHelada.foto = '/resources/uploads/bebidasHeladas/' + req.file.filename;
+    bebidaHelada.save();
+    res.json('Bebida Helada actualizada!');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
 });
 
 module.exports = router;
+

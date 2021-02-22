@@ -40,7 +40,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Rol.findByIdAndDelete(req.params.id);
-    res.json('Rol removido totalmente.');
+    res.json('Rol removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -53,17 +53,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     rol.descripcion = req.body.descripcion;
     rol.save();
     res.json('Rol actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const rol = await Rol.findById(req.params.id);
-    rol.deleted = true;
-    rol.save();
-    res.json('Rol removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }

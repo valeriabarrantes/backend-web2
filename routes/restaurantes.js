@@ -48,7 +48,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     await Restaurante.findByIdAndDelete(req.params.id);
-    res.json('Restaurante removido totalmente.');
+    res.json('Restaurante removido.');
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
@@ -65,17 +65,6 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     restaurante.activo = Boolean(req.body.activo);
     restaurante.save();
     res.json('Restaurante actualizado!');
-  } catch (error) {
-    res.status(400).json('Error: ' + error);
-  }
-});
-
-router.post('/delete/:id', verifyToken, async (req, res) => {
-  try {
-    const restaurante = await Restaurante.findById(req.params.id);
-    restaurante.deleted = true;
-    restaurante.save();
-    res.json('Restaurante removido parcialmente.')
   } catch (error) {
     res.status(400).json('Error: ' + error);
   }
