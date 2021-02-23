@@ -1,4 +1,4 @@
-let BebidaCaliente = require('../models/bebidaCaliente');
+let BebidaCaliente = require('../models/bebidaCaliente.model');
 const router = require('express').Router();
 const path = require('path');
 const multer = require('multer');
