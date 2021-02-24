@@ -13,6 +13,7 @@ const comestibleSchema = new Schema({
   linea: { type: String, required: true },
   marca: { type: String, required: true },
   restaurante: { type: String, required: true },
+  unidadDeMedida: { type: String, required: true },
   deleted: { type: Boolean, required: false }
 }, {
   versionKey: false,
