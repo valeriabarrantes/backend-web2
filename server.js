@@ -38,6 +38,7 @@ const licoresRouter = require('./routes/licores');
 const vinosRouter = require('./routes/vinos');
 const especialidadesRouter = require('./routes/especialidades');
 const unidadesDeMedidaRouter = require('./routes/unidadesDeMedida');
+const buffetRouter = require('./routes/buffet');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -54,6 +55,7 @@ app.use('/licores', licoresRouter);
 app.use('/vinos', vinosRouter);
 app.use('/especialidades', especialidadesRouter);
 app.use('/unidadesDeMedida', unidadesDeMedidaRouter);
+app.use('/buffet', buffetRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
