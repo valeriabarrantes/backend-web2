@@ -39,6 +39,7 @@ const vinosRouter = require('./routes/vinos');
 const especialidadesRouter = require('./routes/especialidades');
 const unidadesDeMedidaRouter = require('./routes/unidadesDeMedida');
 const buffetRouter = require('./routes/buffet');
+const comestibleRouter = require('./routes/comestibles');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -56,6 +57,7 @@ app.use('/vinos', vinosRouter);
 app.use('/especialidades', especialidadesRouter);
 app.use('/unidadesDeMedida', unidadesDeMedidaRouter);
 app.use('/buffet', buffetRouter);
+app.use('/comestibles', comestibleRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
