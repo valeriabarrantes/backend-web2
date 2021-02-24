@@ -41,6 +41,7 @@ const unidadesDeMedidaRouter = require('./routes/unidadesDeMedida');
 const buffetRouter = require('./routes/buffet');
 const comestibleRouter = require('./routes/comestibles');
 const tecnologiaRouter = require('./routes/tecnologia');
+const desechableRouter = require('./routes/desechables');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -60,6 +61,7 @@ app.use('/unidadesDeMedida', unidadesDeMedidaRouter);
 app.use('/buffet', buffetRouter);
 app.use('/comestibles', comestibleRouter);
 app.use('/tecnologia', tecnologiaRouter);
+app.use('/desechables', desechableRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
