@@ -40,6 +40,7 @@ const especialidadesRouter = require('./routes/especialidades');
 const unidadesDeMedidaRouter = require('./routes/unidadesDeMedida');
 const buffetRouter = require('./routes/buffet');
 const comestibleRouter = require('./routes/comestibles');
+const tecnologiaRouter = require('./routes/tecnologia');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -58,6 +59,7 @@ app.use('/especialidades', especialidadesRouter);
 app.use('/unidadesDeMedida', unidadesDeMedidaRouter);
 app.use('/buffet', buffetRouter);
 app.use('/comestibles', comestibleRouter);
+app.use('/tecnologia', tecnologiaRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
