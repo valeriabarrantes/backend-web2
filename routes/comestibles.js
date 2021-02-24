@@ -19,6 +19,7 @@ router.post('/add', verifyToken, async (req, res) => {
     const clase = req.body.clase;
     const linea = req.body.linea;
     const marca = req.body.marca;
+    const unidadDeMedida = req.body.unidadDeMedida;
     const restaurante = req.body.restaurante;
     const deleted = false;
     const nuevoComestible = new Comestible({
@@ -29,6 +30,7 @@ router.post('/add', verifyToken, async (req, res) => {
       linea,
       marca,
       restaurante,
+      unidadDeMedida,
       deleted
     });
     await nuevoComestible.save();
@@ -65,6 +67,7 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     comestible.clase = req.body.clase;
     comestible.linea = req.body.linea;
     comestible.marca = req.body.marca;
+    comestible.unidadDeMedida = req.body.unidadDeMedida;
     comestible.restaurante = req.body.restaurante;
     comestible.save();
     res.json('Comestible actualizado!');
