@@ -8,8 +8,8 @@ const facturaSchema = new Schema({
   codigo: {type: String,default: ''},
   fecha: { type: String, required: true },
   dineroRecibido: { type: Number, required: true },
-  aperturaCaja: { type: Number, required: true },
-  cierreCaja: { type: Number, required: true },
+  aperturaCaja: { type: Boolean, required: true },
+  cierreCaja: { type: Boolean, required: true },
   descripcion: { type: String, required: true },
   restaurante: { type: String, required: true },
   deleted: { type: Boolean, required: false }

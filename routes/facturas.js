@@ -15,8 +15,8 @@ router.post('/add', verifyToken, async (req, res) => {
   try {
     const fecha = req.body.fecha;
     const dineroRecibido = Number(req.body.dineroRecibido);
-    const aperturaCaja = Number(req.body.aperturaCaja);
-    const cierreCaja = Number(req.body.cierreCaja);
+    const aperturaCaja = Boolean(req.body.aperturaCaja);
+    const cierreCaja = Boolean(req.body.cierreCaja);
     const descripcion = req.body.descripcion;
     const restaurante = req.body.restaurante;
     const deleted = false;
@@ -59,8 +59,8 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     const factura = await Factura.findById(req.params.id);
     factura.fecha = req.body.fecha;
     factura.dineroRecibido = Number(req.body.dineroRecibido);
-    factura.aperturaCaja = Number(req.body.aperturaCaja);
-    factura.cierreCaja = Number(req.body.cierreCaja);
+    factura.aperturaCaja = Boolean(req.body.aperturaCaja);
+    factura.cierreCaja = Boolean(req.body.cierreCaja);
     factura.descripcion = req.body.descripcion;
     factura.restaurante = req.body.restaurante;
     factura.save();
