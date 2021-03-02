@@ -44,6 +44,8 @@ const tecnologiaRouter = require('./routes/tecnologia');
 const desechableRouter = require('./routes/desechables');
 const utensilioRouter = require('./routes/utensilios');
 const limpiezaRouter = require('./routes/limpieza');
+const bitacoraRouter = require('./routes/bitacora');
+const facturaRouter = require('./routes/facturas');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -66,6 +68,8 @@ app.use('/tecnologia', tecnologiaRouter);
 app.use('/desechables', desechableRouter);
 app.use('/utensilios', utensilioRouter);
 app.use('/limpieza', limpiezaRouter);
+app.use('/bitacora', bitacoraRouter);
+app.use('/facturas', facturaRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
