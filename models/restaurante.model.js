@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const restauranteSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   especialidad: { type: String, required: true },
   direccion: { type: String, required: true },
@@ -17,8 +17,8 @@ const restauranteSchema = new Schema({
   versionKey: false,
 });
 restauranteSchema.set('collection', 'restaurantes');
-restauranteSchema.plugin(setCodigo, {tabla: 'Restaurante'});
-restauranteSchema.plugin(aumentaConsecutivo, {tabla: 'Restaurante'});
+restauranteSchema.plugin(setCodigo, { tabla: 'Restaurante' });
+restauranteSchema.plugin(aumentaConsecutivo, { tabla: 'Restaurante' });
 restauranteSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Restaurante = mongoose.model('Restaurante', restauranteSchema);

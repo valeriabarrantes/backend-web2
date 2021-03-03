@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const bebidaCalienteSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombre: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombre: { type: String, required: true, unique: true },
   precio: { type: Number, required: true },
   restaurante: { type: String, required: true },
   descripcion: { type: String, required: true },
@@ -17,8 +17,8 @@ const bebidaCalienteSchema = new Schema({
   versionKey: false,
 });
 bebidaCalienteSchema.set('collection', 'bebidasCalientes');
-bebidaCalienteSchema.plugin(setCodigo, {tabla: 'BebidaCaliente'});
-bebidaCalienteSchema.plugin(aumentaConsecutivo, {tabla: 'BebidaCaliente'});
+bebidaCalienteSchema.plugin(setCodigo, { tabla: 'BebidaCaliente' });
+bebidaCalienteSchema.plugin(aumentaConsecutivo, { tabla: 'BebidaCaliente' });
 bebidaCalienteSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const BebidaCaliente = mongoose.model('BebidaCaliente', bebidaCalienteSchema);

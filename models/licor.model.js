@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const licorSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombre: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombre: { type: String, required: true, unique: true },
   precioUnitario: { type: Number, required: false },
   precioBotella: { type: Number, required: false },
   cantidad: { type: Number, required: true },
@@ -20,8 +20,8 @@ const licorSchema = new Schema({
   versionKey: false,
 });
 licorSchema.set('collection', 'licores');
-licorSchema.plugin(setCodigo, {tabla: 'Licor'});
-licorSchema.plugin(aumentaConsecutivo, {tabla: 'Licor'});
+licorSchema.plugin(setCodigo, { tabla: 'Licor' });
+licorSchema.plugin(aumentaConsecutivo, { tabla: 'Licor' });
 licorSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Licor = mongoose.model('Licor', licorSchema);

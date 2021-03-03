@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const rolSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   descripcion: { type: String, required: true },
   deleted: { type: Boolean, required: false }
@@ -13,8 +13,8 @@ const rolSchema = new Schema({
   versionKey: false,
 });
 rolSchema.set('collection', 'roles');
-rolSchema.plugin(setCodigo, {tabla: 'Rol'});
-rolSchema.plugin(aumentaConsecutivo, {tabla: 'Rol'});
+rolSchema.plugin(setCodigo, { tabla: 'Rol' });
+rolSchema.plugin(aumentaConsecutivo, { tabla: 'Rol' });
 rolSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Rol = mongoose.model('Rol', rolSchema);

@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const facturaSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   fecha: { type: String, required: true },
   dineroRecibido: { type: Number, required: true },
   aperturaCaja: { type: Boolean, required: true },
@@ -17,8 +17,8 @@ const facturaSchema = new Schema({
   versionKey: false,
 });
 facturaSchema.set('collection', 'facturas');
-facturaSchema.plugin(setCodigo, {tabla: 'Factura'});
-facturaSchema.plugin(aumentaConsecutivo, {tabla: 'Factura'});
+facturaSchema.plugin(setCodigo, { tabla: 'Factura' });
+facturaSchema.plugin(aumentaConsecutivo, { tabla: 'Factura' });
 facturaSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Factura = mongoose.model('Factura', facturaSchema);

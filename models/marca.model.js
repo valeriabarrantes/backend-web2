@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const marcaSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombreMarca: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombreMarca: { type: String, required: true, unique: true },
   descripcionMarca: { type: String, required: true },
   nacionalidad: { type: String, required: true },
   fotoMarca: { type: String, required: true },
@@ -20,8 +20,8 @@ const marcaSchema = new Schema({
   versionKey: false,
 });
 marcaSchema.set('collection', 'marcas');
-marcaSchema.plugin(setCodigo, {tabla: 'Marca'});
-marcaSchema.plugin(aumentaConsecutivo, {tabla: 'Marca'});
+marcaSchema.plugin(setCodigo, { tabla: 'Marca' });
+marcaSchema.plugin(aumentaConsecutivo, { tabla: 'Marca' });
 marcaSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Marca = mongoose.model('Marca', marcaSchema);

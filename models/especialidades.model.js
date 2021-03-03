@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const especialidadSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombre: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombre: { type: String, required: true, unique: true },
   ingredientes: { type: String, required: true },
   foto: { type: String, required: true },
   precio: { type: Number, required: false },
@@ -16,8 +16,8 @@ const especialidadSchema = new Schema({
   versionKey: false,
 });
 especialidadSchema.set('collection', 'especialidades');
-especialidadSchema.plugin(setCodigo, {tabla: 'Especialidad'});
-especialidadSchema.plugin(aumentaConsecutivo, {tabla: 'Especialidad'});
+especialidadSchema.plugin(setCodigo, { tabla: 'Especialidad' });
+especialidadSchema.plugin(aumentaConsecutivo, { tabla: 'Especialidad' });
 especialidadSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Especialidad = mongoose.model('Especialidad', especialidadSchema);

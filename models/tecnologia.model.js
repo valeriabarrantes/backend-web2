@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const tecnologiaSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   cantidad: { type: Number, required: true },
   precio: { type: Number, required: true },
@@ -17,8 +17,8 @@ const tecnologiaSchema = new Schema({
   versionKey: false,
 });
 tecnologiaSchema.set('collection', 'tecnologia');
-tecnologiaSchema.plugin(setCodigo, {tabla: 'Tecnologia'});
-tecnologiaSchema.plugin(aumentaConsecutivo, {tabla: 'Tecnologia'});
+tecnologiaSchema.plugin(setCodigo, { tabla: 'Tecnologia' });
+tecnologiaSchema.plugin(aumentaConsecutivo, { tabla: 'Tecnologia' });
 tecnologiaSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Tecnologia = mongoose.model('Tecnologia', tecnologiaSchema);
