@@ -47,6 +47,7 @@ const limpiezaRouter = require('./routes/limpieza');
 const bitacoraRouter = require('./routes/bitacora');
 const facturaRouter = require('./routes/facturas');
 const clienteRouter = require('./routes/clientes');
+const proveedorRouter = require('./routes/proveedores');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -72,6 +73,7 @@ app.use('/limpieza', limpiezaRouter);
 app.use('/bitacora', bitacoraRouter);
 app.use('/facturas', facturaRouter);
 app.use('/clientes', clienteRouter);
+app.use('/proveedores', proveedorRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 

@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const clienteSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   montoPago: { type: Number, required: true },
   detalle: { type: String, required: true },
@@ -20,9 +20,9 @@ const clienteSchema = new Schema({
 }, {
   versionKey: false,
 });
-clienteSchema.set('collection', 'Cliente');
-clienteSchema.plugin(setCodigo, {tabla: 'Cliente'});
-clienteSchema.plugin(aumentaConsecutivo, {tabla: 'Cliente'});
+clienteSchema.set('collection', 'clientes');
+clienteSchema.plugin(setCodigo, { tabla: 'Cliente' });
+clienteSchema.plugin(aumentaConsecutivo, { tabla: 'Cliente' });
 clienteSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Cliente = mongoose.model('Cliente', clienteSchema);

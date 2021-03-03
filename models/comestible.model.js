@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const comestibleSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   cantidad: { type: Number, required: true },
   tipo: { type: String, required: true },
@@ -19,8 +19,8 @@ const comestibleSchema = new Schema({
   versionKey: false,
 });
 comestibleSchema.set('collection', 'comestibles');
-comestibleSchema.plugin(setCodigo, {tabla: 'Comestible'});
-comestibleSchema.plugin(aumentaConsecutivo, {tabla: 'Comestible'});
+comestibleSchema.plugin(setCodigo, { tabla: 'Comestible' });
+comestibleSchema.plugin(aumentaConsecutivo, { tabla: 'Comestible' });
 comestibleSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Comestible = mongoose.model('Comestible', comestibleSchema);

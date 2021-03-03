@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const buffetSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombre: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombre: { type: String, required: true, unique: true },
   precio: { type: Number, required: true },
   tipo: { type: String, required: true },
   foto: { type: String, required: true },
@@ -16,8 +16,8 @@ const buffetSchema = new Schema({
   versionKey: false,
 });
 buffetSchema.set('collection', 'buffet');
-buffetSchema.plugin(setCodigo, {tabla: 'Buffet'});
-buffetSchema.plugin(aumentaConsecutivo, {tabla: 'Buffet'});
+buffetSchema.plugin(setCodigo, { tabla: 'Buffet' });
+buffetSchema.plugin(aumentaConsecutivo, { tabla: 'Buffet' });
 buffetSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Buffet = mongoose.model('Buffet', buffetSchema);

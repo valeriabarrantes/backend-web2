@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const limpiezaSchema = new Schema({
-  codigo: {type: String,default: ''},
+  codigo: { type: String, default: '', unique: true },
   nombre: { type: String, required: true },
   cantidad: { type: Number, required: true },
   tipo: { type: String, required: true },
@@ -19,8 +19,8 @@ const limpiezaSchema = new Schema({
   versionKey: false,
 });
 limpiezaSchema.set('collection', 'limpieza');
-limpiezaSchema.plugin(setCodigo, {tabla: 'Limpieza'});
-limpiezaSchema.plugin(aumentaConsecutivo, {tabla: 'Limpieza'});
+limpiezaSchema.plugin(setCodigo, { tabla: 'Limpieza' });
+limpiezaSchema.plugin(aumentaConsecutivo, { tabla: 'Limpieza' });
 limpiezaSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Limpieza = mongoose.model('Limpieza', limpiezaSchema);

@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const vinoSchema = new Schema({
-  codigo: {type: String,default: ''},
-  nombre: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  nombre: { type: String, required: true, unique: true },
   cosecha: { type: String, required: true },
   precioUnitario: { type: Number, required: false },
   precioBotella: { type: Number, required: false },
@@ -21,8 +21,8 @@ const vinoSchema = new Schema({
   versionKey: false,
 });
 vinoSchema.set('collection', 'vinos');
-vinoSchema.plugin(setCodigo, {tabla: 'Vino'});
-vinoSchema.plugin(aumentaConsecutivo, {tabla: 'Vino'});
+vinoSchema.plugin(setCodigo, { tabla: 'Vino' });
+vinoSchema.plugin(aumentaConsecutivo, { tabla: 'Vino' });
 vinoSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Vino = mongoose.model('Vino', vinoSchema);

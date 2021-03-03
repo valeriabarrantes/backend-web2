@@ -5,8 +5,8 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const empleadoSchema = new Schema({
-  codigo: {type: String,default: ''},
-  cedula: { type: String, required: true },
+  codigo: { type: String, default: '', unique: true },
+  cedula: { type: String, required: true, unique: true },
   nombre: { type: String, required: true },
   primerApellido: { type: String, required: false },
   segundoAppelido: { type: String, required: false },
@@ -21,8 +21,8 @@ const empleadoSchema = new Schema({
   versionKey: false,
 });
 empleadoSchema.set('collection', 'empleados');
-empleadoSchema.plugin(setCodigo, {tabla: 'Empleado'});
-empleadoSchema.plugin(aumentaConsecutivo, {tabla: 'Empleado'});
+empleadoSchema.plugin(setCodigo, { tabla: 'Empleado' });
+empleadoSchema.plugin(aumentaConsecutivo, { tabla: 'Empleado' });
 empleadoSchema.plugin(encrypt, { secret: process.env.SECRET });
 
 const Empleado = mongoose.model('Empleado', empleadoSchema);
