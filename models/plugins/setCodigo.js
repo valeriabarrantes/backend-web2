@@ -8,9 +8,9 @@ module.exports = function setCodigoPlugin(schema, options) {
       this.wasNew = elemento.isNew;
       if (elemento.isNew) {
         const Consecutivo = await consecutivoModel.getByTable(options.tabla);
-        let { prefijo, valor } = Consecutivo;
+        let { prefijo, valor, tienePrefijo } = Consecutivo;
         valor++
-        elemento.codigo = tienePrefijo ? prefijo + valor : valor;
+        elemento.codigo = tienePrefijo ? (prefijo + valor) : valor
       }
       next();
     } catch (error) {
