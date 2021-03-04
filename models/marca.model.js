@@ -6,7 +6,7 @@ const encrypt = require('mongoose-encryption');
 
 const marcaSchema = new Schema({
   codigo: { type: String, default: '' },
-  nombreMarca: { type: String, required: true, unique: true },
+  nombreMarca: { type: String, required: true },
   descripcionMarca: { type: String, required: true },
   nacionalidad: { type: String, required: true },
   fotoMarca: { type: String, required: true },
