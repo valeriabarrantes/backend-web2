@@ -6,7 +6,7 @@ const encrypt = require('mongoose-encryption');
 
 const especialidadSchema = new Schema({
   codigo: { type: String, default: '' },
-  nombre: { type: String, required: true, unique: true },
+  nombre: { type: String, required: true },
   ingredientes: { type: String, required: true },
   foto: { type: String, required: true },
   precio: { type: Number, required: false },

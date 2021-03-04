@@ -6,7 +6,7 @@ const encrypt = require('mongoose-encryption');
 
 const empleadoSchema = new Schema({
   codigo: { type: String, default: '' },
-  cedula: { type: String, required: true, unique: true },
+  cedula: { type: String, required: true },
   nombre: { type: String, required: true },
   primerApellido: { type: String, required: false },
   segundoAppelido: { type: String, required: false },

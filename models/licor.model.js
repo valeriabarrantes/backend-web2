@@ -6,7 +6,7 @@ const encrypt = require('mongoose-encryption');
 
 const licorSchema = new Schema({
   codigo: { type: String, default: '' },
-  nombre: { type: String, required: true, unique: true },
+  nombre: { type: String, required: true },
   precioUnitario: { type: Number, required: false },
   precioBotella: { type: Number, required: false },
   cantidad: { type: Number, required: true },
