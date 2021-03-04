@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const puestoSchema = new Schema({
-  codigo: { type: String, default: '', unique: true },
+  codigo: { type: String, default: '' },
   nombre: { type: String, required: true },
   rol: { type: String, required: true },
   interno: { type: Boolean, required: true },

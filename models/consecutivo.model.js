@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const encrypt = require('mongoose-encryption');
 
 const consecutivoSchema = new Schema({
-  codigo: { type: Number, required: true, bcrypt: true, unique: true },
+  codigo: { type: Number, required: true, bcrypt: true },
   tabla: { type: String, required: true },
   descripcion: { type: String, required: true },
   valor: { type: Number, required: true },

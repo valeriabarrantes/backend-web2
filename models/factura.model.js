@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const facturaSchema = new Schema({
-  codigo: { type: String, default: '', unique: true },
+  codigo: { type: String, default: '' },
   fecha: { type: String, required: true },
   dineroRecibido: { type: Number, required: true },
   aperturaCaja: { type: Boolean, required: true },

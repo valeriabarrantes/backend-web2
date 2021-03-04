@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const bebidaCalienteSchema = new Schema({
-  codigo: { type: String, default: '', unique: true },
+  codigo: { type: String, default: '' },
   nombre: { type: String, required: true, unique: true },
   precio: { type: Number, required: true },
   restaurante: { type: String, required: true },
