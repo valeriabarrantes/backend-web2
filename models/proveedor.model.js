@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const proveedorSchema = new Schema({
-  codigo: { type: String, default: '', unique: true },
+  codigo: { type: String, default: '' },
   cedula: { type: String, required: true, unique: true },
   fechaIngreso: { type: String, required: true },
   nombre: { type: String, required: true },

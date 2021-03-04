@@ -5,7 +5,7 @@ const aumentaConsecutivo = require('./plugins/aumentaConsecutivo');
 const encrypt = require('mongoose-encryption');
 
 const unidadDeMedidaSchema = new Schema({
-  codigo: { type: String, default: '', unique: true },
+  codigo: { type: String, default: '' },
   unidad: { type: String, required: true },
   escala: { type: String, required: false },
   simbolo: { type: String, required: false },
