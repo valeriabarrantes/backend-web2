@@ -11,7 +11,7 @@ const proveedorSchema = new Schema({
   nombre: { type: String, required: true },
   primerApellido: { type: String, required: true },
   segundoApellido: { type: String, required: true },
-  productos: { type: Array, required: true },
+  productos: { type: String, required: true },
   direccion: { type: String, required: true },
   celular: { type: String, required: true },
   fax: { type: String, required: false },

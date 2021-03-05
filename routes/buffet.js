@@ -76,7 +76,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     buffet.precio = Number(req.body.precio);
     buffet.tipo = req.body.tipo;
     buffet.unidadDeMedida = req.body.unidadDeMedida;
-    buffet.foto = '/resources/uploads/buffet/' + req.file.filename;
+    buffet.foto = req.file ? '/resources/uploads/buffet/' + req.file.filename : buffet.foto;
     buffet.save();
     res.json('buffet actualizado!');
   } catch (error) {

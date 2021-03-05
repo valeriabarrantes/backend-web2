@@ -91,7 +91,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     vino.marca = req.body.marca;
     vino.nacionalidad = req.body.nacionalidad;
     vino.restaurante = req.body.restaurante;
-    vino.foto = '/resources/uploads/vinos/' + req.file.filename;
+    vino.foto = req.file ? '/resources/uploads/vinos/' + req.file.filename : vino.foto;
     vino.save();
     res.json('Vino actualizado!');
   } catch (error) {

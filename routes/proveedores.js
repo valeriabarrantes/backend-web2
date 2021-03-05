@@ -91,13 +91,13 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     proveedor.nombre = req.body.nombre;
     proveedor.primerApellido = req.body.primerApellido;
     proveedor.segundoApellido = req.body.segundoApellido;
-    proveedor.productos = Array(req.body.productos);
+    proveedor.productos = req.body.productos;
     proveedor.direccion = req.body.direccion;
     proveedor.celular = req.body.celular;
     proveedor.fax = req.body.fax;
     proveedor.telefonoOficina = req.body.telefonoOficina;
     proveedor.correo = req.body.correo;
-    proveedor.foto = '/resources/uploads/proveedores/' + req.file.filename;
+    proveedor.foto = req.file ? '/resources/uploads/proveedores/' + req.file.filename : proveedor.foto;
     proveedor.save();
     res.json('Proveedor actualizado!');
   } catch (error) {

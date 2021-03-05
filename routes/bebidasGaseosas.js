@@ -85,7 +85,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     bebidaGaseosa.nacionalidad = req.body.nacionalidad;
     bebidaGaseosa.cantidad = Number(req.body.cantidad);
     bebidaGaseosa.marca = req.body.marca;
-    bebidaGaseosa.foto = '/resources/uploads/bebidasGaseosas/' + req.file.filename;
+    bebidaGaseosa.foto = req.file ? '/resources/uploads/bebidasGaseosas/' + req.file.filename : bebidaGaseosa.foto;
     bebidaGaseosa.save();
     res.json('Bebida Gaseosa actualizada!');
   } catch (error) {

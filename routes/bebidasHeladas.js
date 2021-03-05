@@ -79,7 +79,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     bebidaHelada.restaurante = req.body.restaurante;
     bebidaHelada.descripcion = req.body.descripcion;
     bebidaHelada.ingredientes = req.body.ingredientes;
-    bebidaHelada.foto = '/resources/uploads/bebidasHeladas/' + req.file.filename;
+    bebidaHelada.foto = req.file ? '/resources/uploads/bebidasHeladas/' + req.file.filename : bebidaHelada.foto;
     bebidaHelada.save();
     res.json('Bebida Helada actualizada!');
   } catch (error) {

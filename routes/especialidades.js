@@ -76,7 +76,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     especialidades.ingredientes = req.body.ingredientes;
     especialidades.precio = Number(req.body.precio);
     especialidades.detalle = req.body.detalle;
-    especialidades.foto = '/resources/uploads/especialidades/' + req.file.filename;
+    especialidades.foto = req.file ? '/resources/uploads/especialidades/' + req.file.filename : especialidades.foto;
     especialidades.save();
     res.json('Especialidad actualizada!');
   } catch (error) {
