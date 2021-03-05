@@ -88,7 +88,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     licor.marca = req.body.marca;
     licor.nacionalidad = req.body.nacionalidad;
     licor.restaurante = req.body.restaurante;
-    licor.foto = '/resources/uploads/licores/' + req.file.filename;
+    licor.foto = req.file ? '/resources/uploads/licores/' + req.file.filename : licor.foto;
     licor.save();
     res.json('Licor actualizado!');
   } catch (error) {

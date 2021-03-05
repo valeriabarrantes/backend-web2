@@ -91,7 +91,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
     empleado.puesto = req.body.puesto;
     empleado.restaurante = req.body.restaurante;
     empleado.nacionalidad = req.body.nacionalidad;
-    empleado.foto = '/resources/uploads/empleados/' + req.file.filename;
+    empleado.foto = req.file ? '/resources/uploads/empleados/' + req.file.filename : empleado.foto;
     empleado.save();
     res.json('Empleado actualizado!');
   } catch (error) {

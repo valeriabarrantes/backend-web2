@@ -67,7 +67,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const pais = await Pais.findById(req.params.id);
     pais.nombre = req.body.nombre;
-    pais.imagen = '/resources/uploads/paises/' + req.file.filename;
+    pais.imagen = req.file ? '/resources/uploads/paises/' + req.file.filename : pais.imagen;
     pais.save();
     res.json('Pais actualizado!');
   } catch (error) {

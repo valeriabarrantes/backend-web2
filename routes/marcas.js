@@ -83,12 +83,12 @@ router.post('/update/:id', [verifyToken ,uploadDouble], async (req, res) => {
     marcas.nombreMarca = req.body.nombreMarca;
     marcas.descripcionMarca = req.body.descripcionMarca;
     marcas.nacionalidad = req.body.nacionalidad;
-    marcas.fotoMarca = '/resources/uploads/marcas/' + req.files.fotoMarca[0].filename;
+    marcas.fotoMarca = req.files.fotoMarca[0] ? '/resources/uploads/marcas/' + req.files.fotoMarca[0].filename : marcas.fotoMarca;
     marcas.cedulaEmpresa = req.body.cedulaEmpresa;
     marcas.nombreEmpresa = req.body.nombreEmpresa;
     marcas.detalleEmpresa = req.body.detalleEmpresa;
     marcas.telefonoEmpresa = req.body.telefonoEmpresa;
-    marcas.fotoEmpresa = '/resources/uploads/marcas/' + req.files.fotoEmpresa[0].filename;
+    marcas.fotoEmpresa = req.files.fotoEmpresa[0] ? '/resources/uploads/marcas/' + req.files.fotoEmpresa[0].filename : marcas.fotoEmpresa;
     marcas.save();
     res.json('Marca actualizada!');
   } catch (error) {
