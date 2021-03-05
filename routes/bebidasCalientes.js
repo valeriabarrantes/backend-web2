@@ -31,7 +31,7 @@ router.get('/', verifyToken, async (req, res) => {
 router.post('/add', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const nombre = req.body.nombre;
-    const precio = req.body.precio;
+    const precio = Number(req.body.precio);
     const restaurante = req.body.restaurante;
     const descripcion = req.body.descripcion;
     const ingredientes = req.body.ingredientes;
@@ -75,7 +75,7 @@ router.post('/update/:id', [verifyToken, uploadSingle], async (req, res) => {
   try {
     const bebidaCaliente = await BebidaCaliente.findById(req.params.id);
     bebidaCaliente.nombre = req.body.nombre;
-    bebidaCaliente.precio = req.body.precio;
+    bebidaCaliente.precio = Number(req.body.precio);
     bebidaCaliente.restaurante = req.body.restaurante;
     bebidaCaliente.descripcion = req.body.descripcion;
     bebidaCaliente.ingredientes = req.body.ingredientes;
