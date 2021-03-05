@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const fileExtension = '.' + file.originalname.split('.').pop();
     const nombreElemento = req.body.cedula;
-    console.log(nombreElemento);
     const fileName = file.fieldname + '_' + nombreElemento;
     cb(null, fileName + fileExtension)
   }
