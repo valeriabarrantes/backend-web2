@@ -41,6 +41,7 @@ router.post('/add', verifyToken, async (req, res) => {
     const administradorSistema = Boolean(req.body.administradorSistema);
     const administradorSeguridad = Boolean(req.body.administradorSeguridad);
     const administradorRestaurante = Boolean(req.body.administradorRestaurante);
+    const restaurante = req.body.restaurante;
     const administradorCuentas = Boolean(req.body.administradorCuentas);
     const contrasena = req.body.contrasena;
     const deleted = false;
@@ -54,6 +55,7 @@ router.post('/add', verifyToken, async (req, res) => {
       administradorSistema,
       administradorSeguridad,
       administradorRestaurante,
+      restaurante,
       administradorCuentas,
       contrasena,
       deleted
@@ -95,6 +97,7 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     usuario.administradorSistema = Boolean(req.body.administradorSistema);
     usuario.administradorSeguridad = Boolean(req.body.administradorSeguridad);
     usuario.administradorRestaurante = Boolean(req.body.administradorRestaurante);
+    usuario.restaurante = req.body.restaurante;
     usuario.administradorCuentas = Boolean(req.body.administradorCuentas);
     usuario.contrasena = req.body.contrasena;
     usuario.save();
