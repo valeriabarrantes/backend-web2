@@ -15,6 +15,7 @@ const usuarioSchema = new Schema({
   administradorSistema: { type: Boolean, required: false },
   administradorSeguridad: { type: Boolean, required: false },
   administradorRestaurante: { type: Boolean, required: false },
+  restaurante: { type: String, required: false },
   administradorCuentas: { type: Boolean, required: false },
   contrasena: { type: String, required: true, select: false },
   deleted: { type: Boolean, required: false }
