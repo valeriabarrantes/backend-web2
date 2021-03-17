@@ -99,7 +99,7 @@ router.post('/update/:id', verifyToken, async (req, res) => {
     usuario.administradorRestaurante = Boolean(req.body.administradorRestaurante);
     usuario.restaurante = req.body.restaurante;
     usuario.administradorCuentas = Boolean(req.body.administradorCuentas);
-    usuario.contrasena = req.body.contrasena;
+    usuario.contrasena = req.body.contrasena === "" ? usuario.contrasena : req.body.contrasena;
     usuario.save();
     res.json('Usuario actualizado!');
   } catch (error) {
