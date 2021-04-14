@@ -10,6 +10,7 @@ const mesaSchema = new Schema({
   numero: { type: Number, required: true },
   sillas: { type: Number, required: true },
   restaurante: { type: String, required: true },
+  status: { type: String, required: true },
   deleted: { type: Boolean, required: false }
 }, {
   versionKey: false,
