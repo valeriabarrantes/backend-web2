@@ -49,6 +49,7 @@ const facturaRouter = require('./routes/facturas');
 const clienteRouter = require('./routes/clientes');
 const proveedorRouter = require('./routes/proveedores');
 const productoRouter = require('./routes/productos');
+const platilloRouter = require('./routes/platillos');
 app.use('/mesas', mesasRouter);
 app.use('/consecutivos', consecutivosRouter);
 app.use('/paises', paisesRouter);
@@ -76,6 +77,7 @@ app.use('/facturas', facturaRouter);
 app.use('/clientes', clienteRouter);
 app.use('/proveedores', proveedorRouter);
 app.use('/productos', productoRouter);
+app.use('/platillos', platilloRouter);
 
 app.use('/resources',express.static(__dirname + '/public'));
 
